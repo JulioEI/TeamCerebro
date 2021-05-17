@@ -2,6 +2,7 @@
 load monkeydata_training.mat
 
 iters = (1:50:1000)';
+%define algorithm combinations
 protcs = [{'CNB'}, {'CNB'}, {'SVM_del'}, {'SVM_del'}, {'SVM_gauss'}, {'SVM_gauss'};...
     {'MeanTraj'}, {'Kalman'},{'MeanTraj'}, {'Kalman'},{'MeanTraj'}, {'Kalman'}];
 kfold = nan(length(iters), length(protcs));
