@@ -18,7 +18,7 @@ axis square
 grid
 
 % Train Model
-modelParameters = positionEstimatorTraining(trainingData, classifier, predictor);
+modelParameters = positionEstimatorTraining(trainingData, 'classifier', classifier, 'predictor', predictor);
 
 for tr=1:size(testData,1)
     display(['Decoding block ',num2str(tr),' out of ',num2str(size(testData,1))]);
@@ -35,7 +35,7 @@ for tr=1:size(testData,1)
 
             past_current_trial.startHandPos = testData(tr,direc).handPos(1:2,1); 
             
-            [decodedPosX, decodedPosY, newParameters] = positionEstimator(past_current_trial, modelParameters,classifier, predictor);
+            [decodedPosX, decodedPosY, newParameters] = positionEstimator(past_current_trial, modelParameters,'classifier', classifier, 'predictor', predictor);
             modelParameters = newParameters;
             
             decodedPos = [decodedPosX; decodedPosY];
