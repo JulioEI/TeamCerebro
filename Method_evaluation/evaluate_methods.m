@@ -21,7 +21,7 @@ for iter = 1:length(iters)
         n_predictions = 0;  
         tic
         % Train Model
-        modelParameters = positionEstimatorTraining(trainingData, classifier, predictor);
+        modelParameters = positionEstimatorTraining(trainingData, 'classifier', classifier, 'predictor',  predictor);
         for tr=1:size(testData,1)
             pause(0.001)
             for direc=randperm(8) 
@@ -36,7 +36,7 @@ for iter = 1:length(iters)
 
                     past_current_trial.startHandPos = testData(tr,direc).handPos(1:2,1); 
 
-                    [decodedPosX, decodedPosY, newParameters] = positionEstimator(past_current_trial, modelParameters,classifier, predictor);
+                    [decodedPosX, decodedPosY, newParameters] = positionEstimator(past_current_trial, modelParameters,'classifier',classifier, 'predictor',predictor);
                     modelParameters = newParameters;
 
                     decodedPos = [decodedPosX; decodedPosY];
