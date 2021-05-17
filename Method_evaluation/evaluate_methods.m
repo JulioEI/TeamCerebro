@@ -23,7 +23,6 @@ for iter = 1:length(iters)
         % Train Model
         modelParameters = positionEstimatorTraining(trainingData, 'classifier', classifier, 'predictor',  predictor);
         for tr=1:size(testData,1)
-            pause(0.001)
             for direc=randperm(8) 
                 decodedHandPos = [];
 
