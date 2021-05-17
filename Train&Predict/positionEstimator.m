@@ -1,8 +1,18 @@
 % Team Cerebro: Angelica Parra, Zihao Wang, Julio Esparza, Maria Royo
-function [x, y, modelParameters] = positionEstimator(test_data, modelParameters, classifier, predictor)
+function [x, y, modelParameters] = positionEstimator(test_data, modelParameters, varargin)
+
+    sj = inputParser;
+    addParameter(sj,'classifier','SVM_del',@isstr)
+    addParameter(sj, 'predictor', 'MeanTraj', @isstr)
+
+    parse(sj,varargin{:})
+
+    classifier = sj.Results.classifier;
+    predictor = sj.Results.predictor;
 %%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                             CLASSIFY                                %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     t = size(test_data.spikes,2) - 300;
     if (t==20)
         if strcmp(classifier, 'SVM_gauss')
