@@ -1,11 +1,19 @@
 % Team Cerebro: Angelica Parra, Zihao Wang, Julio Esparza, Maria Royo
-function [modelParameters] = positionEstimatorTraining(training_data,classifier, predictor)
+function [modelParameters] = positionEstimatorTraining(training_data,varargin)
     % define parameters
     n = size(training_data,1); %number of trials for each direction
     k = size(training_data,2); %number of directions
     c = size(training_data(1,1).spikes,1); %number of cells
     t_interval = 320; %time interval to consider for the model (first 320 ms)
 
+    sj = inputParser;
+    addParameter(sj,'classifier','SVM_del',@isstr)
+    addParameter(sj, 'predictor', 'MeanTraj', @isstr)
+
+    parse(sj,varargin{:})
+
+    classifier = sj.Results.classifier;
+    predictor = sj.Results.predictor;
 %%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %                              CLASSIFIER                   %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
