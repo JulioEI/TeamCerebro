@@ -8,7 +8,7 @@ The repository is subdivided into 3 main folders:
           b. **SVM_del_kfold.m**: evaluate SVM (with delete cells as the preprocessing step) accuracy through 10-kfold. <br />
           c. **SVM_gauss_kfold.m**: evaluate SVM (with gaussian as the preprocessing step) accuracy through 10-kfold. <br />
           d. **parameters_performance.m**: general function that calls for the different classifiers parameter testing. This function may take several hours to run due to the                  iterative nature of the parameter optimization. <br />
-          e. **fillformat.m**&**plotFill1.m**: functions used for plotting. Developed by Sara Mederos and Julio Esparza at Cajal Institute (Spanish Research Council), Madrid, Spain. <br />
+          e. **fillformat.m** & **plotFill1.m**: functions used for plotting. Developed by Sara Mederos and Julio Esparza at Cajal Institute (Spanish Research Council), Madrid, Spain. <br />
   2. Method_evaluation: This folder contains the functions used to test the different algorithm combinations (direction classifier + trajectory predictor). <br />
           a. **evaluate_methods.m**: evaluation across different combinations of direction (classification) and trajectory (regression) prediction methods. This requires the                    **positionEstimatorTraining.m** & **positionEstimator.m** functions located in "Train&Predict" folder. <br />
   3. Train&Predict: This folder contains the functions used to train and predict the data for each algorithm (i.e. this folder contains the functions in the competition format).<br />
