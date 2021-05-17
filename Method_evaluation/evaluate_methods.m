@@ -6,29 +6,29 @@ protcs = [{'CNB'}, {'CNB'}, {'SVM_del'}, {'SVM_del'}, {'SVM_gauss'}, {'SVM_gauss
     {'MeanTraj'}, {'Kalman'},{'MeanTraj'}, {'Kalman'},{'MeanTraj'}, {'Kalman'}];
 kfold = nan(length(iters), length(protcs));
 tim = nan(length(iters), length(protcs));
-for iter = 1:length(iters)
+for iter = 1:length(iters)  %iterate over each train/test data split
     fprintf('%i-',iter)
-    rng(iters(iter));
+    rng(iters(iter)); %set random seed for reproducibility
     ix = randperm(length(trial));
-    % Select training and testing data (you can choose to split your data in a different way if you wish)
+    % Split into training and testing data
     trainingData = trial(ix(1:60),:);
     testData = trial(ix(61:end),:);
     
-    for ver = 1:length(protcs)
-        classifier = protcs{1,ver};
-        predictor = protcs{2,ver};
+    for ver = 1:length(protcs) %iterate over each algorithm combination as defined in protcs 
+        classifier = protcs{1,ver}; %select classifier of the algorithm combination
+        predictor = protcs{2,ver}; %select predictor of the algorithm combination
         meanSqError = 0;
         n_predictions = 0;  
-        tic
+        tic % keep track of running time 
         % Train Model
-        modelParameters = positionEstimatorTraining(trainingData, 'classifier', classifier, 'predictor',  predictor);
-        for tr=1:size(testData,1)
-            for direc=randperm(8) 
+        modelParameters = positionEstimatorTraining(trainingData, 'classifier', classifier, 'predictor',  predictor); %train the model for the algorithm combination 
+        for tr=1:size(testData,1) %iterate over each 8 trial batch in the test data
+            for direc=randperm(8) %iterate over each direction in each test data batch
                 decodedHandPos = [];
 
-                times=320:20:size(testData(tr,direc).spikes,2);
+                times=320:20:size(testData(tr,direc).spikes,2); %start 20ms after movement onset in 20ms steps
 
-                for t=times
+                for t=times %for each time bin decode hand position
                     past_current_trial.trialId = testData(tr,direc).trialId;
                     past_current_trial.spikes = testData(tr,direc).spikes(:,1:t); 
                     past_current_trial.decodedHandPos = decodedHandPos;
@@ -54,6 +54,7 @@ for iter = 1:length(iters)
     end
 end
 
+%% PLOT RESULTS
 
 group_label = [{'CNB+Mean'}, {'CNB+Kalman'}, {'dSVM+Mean'}, {'dSVM+Kalman'}, {'gSVM+Mean'},{'gSVM+Kalman'}];
 groups = repmat(group_label, 20, 1);
