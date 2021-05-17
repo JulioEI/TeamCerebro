@@ -82,9 +82,9 @@ function [x, y, modelParameters] = positionEstimator(test_data, modelParameters,
         modelParameters.Kalman.V_prev = V_prev;   
         x = state_estimate(1);
         y = state_estimate(2);
-        if dir==1 && (norm(state_estimate)<50)
-            x = x*cosd(-5) - y*sind(-5);
-            y = x*sind(-5) + y*cosd(-5);
-        end
+        %if dir==1 && (norm(state_estimate)<50)
+        %    x = x*cosd(-5) - y*sind(-5);
+        %   y = x*sind(-5) + y*cosd(-5);
+        %end
     end
 end
