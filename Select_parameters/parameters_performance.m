@@ -16,6 +16,22 @@ for win= 1:size(window,1)
     end
 end
 
+
+figure
+hold on
+imagesc(stdev, window, kfold_SVM')
+set(gca,'FontSize',20)
+ylabel('Window size (s)')
+xlabel('Standard Deviation (s)')
+
+figure
+hold on
+imagesc(stdev, window, time_SVM)
+set(gca,'FontSize',20)
+ylabel('Window size (s)')
+xlabel('Standard Deviation (s)')
+
+
 %% Tune parameters for SVM and CNB with dell-cells
 ths = (0.1:0.1:5)'./1000;
 
